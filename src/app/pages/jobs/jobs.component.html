@@ -1,0 +1,44 @@
+<div class="max-w-5xl mx-auto px-4 py-8">
+  <h2 class="text-2xl font-bold mb-6">Recherche d'emplois</h2>
+
+  <app-search-bar (search)="onSearch($event)"></app-search-bar>
+
+  @if (errorMessage) {
+    <div class="bg-red-100 text-red-700 p-3 rounded mb-4">{{ errorMessage }}</div>
+  }
+
+  @if (loading) {
+    <app-loading></app-loading>
+  }
+
+  @if (!loading && jobs.length > 0) {
+    <p class="text-gray-600 mb-4">{{ totalResults }} résultats trouvés</p>
+
+    <div class="space-y-4">
+      @for (job of jobs; track job.id) {
+        <app-job-card
+          [job]="job"
+          [isLoggedIn]="authService.isLoggedIn()"
+          [isFavorite]="isFavorite(job.id, (favorites$ | async) || [])"
+          (addFavorite)="onAddFavorite($event)"
+          (removeFavorite)="onRemoveFavorite($event, (favorites$ | async) || [])"
+          (addApplication)="onAddApplication($event)">
+        </app-job-card>
+      }
+    </div>
+
+    <app-pagination
+      [currentPage]="currentPage"
+      [totalPages]="totalPages"
+      (pageChange)="onPageChange($event)">
+    </app-pagination>
+  }
+
+  @if (!loading && jobs.length === 0 && currentKeyword) {
+    <p class="text-center text-gray-500 py-8">Aucune offre trouvée pour "{{ currentKeyword }}"</p>
+  }
+
+  @if (!loading && jobs.length === 0 && !currentKeyword) {
+    <p class="text-center text-gray-500 py-8">Entrez des mots clés pour commencer la recherche</p>
+  }
+</div>

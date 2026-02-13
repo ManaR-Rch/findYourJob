@@ -1,0 +1,129 @@
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
+import { JobCardComponent } from '../../components/job-card/job-card.component';
+import { PaginationComponent } from '../../components/pagination/pagination.component';
+import { LoadingComponent } from '../../components/loading/loading.component';
+import { JobService } from '../../services/job.service';
+import { AuthService } from '../../services/auth.service';
+import { Job } from '../../models/job.model';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { FavoriteOffer } from '../../models/favorite.model';
+import { selectAllFavorites } from '../../store/favorites.selectors';
+import * as FavoritesActions from '../../store/favorites.actions';
+import { ApplicationService } from '../../services/application.service';
+
+@Component({
+  selector: 'app-jobs',
+  standalone: true,
+  imports: [CommonModule, SearchBarComponent, JobCardComponent, PaginationComponent, LoadingComponent],
+  templateUrl: './jobs.component.html'
+})
+export class JobsComponent {
+  jobs: Job[] = [];
+  loading = false;
+  currentPage = 1;
+  totalPages = 1;
+  totalResults = 0;
+  errorMessage = '';
+  currentKeyword = '';
+  currentLocation = '';
+
+  favorites$: Observable<FavoriteOffer[]>;
+
+  constructor(
+    private jobService: JobService,
+    public authService: AuthService,
+    private store: Store,
+    private applicationService: ApplicationService
+  ) {
+    this.favorites$ = this.store.select(selectAllFavorites);
+  }
+
+  ngOnInit() {
+    if (this.authService.isLoggedIn()) {
+      const user = this.authService.getCurrentUser();
+      if (user?.id) {
+        this.store.dispatch(FavoritesActions.loadFavorites({ userId: user.id }));
+      }
+    }
+  }
+
+  onSearch(event: { keyword: string, location: string }) {
+    this.currentKeyword = event.keyword;
+    this.currentLocation = event.location;
+    this.currentPage = 1;
+    this.searchJobs();
+  }
+
+  searchJobs() {
+    this.loading = true;
+    this.errorMessage = '';
+
+    this.jobService.searchJobs(this.currentKeyword, this.currentLocation, this.currentPage).subscribe({
+      next: (result) => {
+        this.jobs = result.jobs;
+        this.totalResults = result.total;
+        this.totalPages = Math.ceil(result.total / 10);
+        this.loading = false;
+      },
+      error: () => {
+        this.errorMessage = 'Erreur lors de la recherche. Veuillez réessayer.';
+        this.loading = false;
+      }
+    });
+  }
+
+  onPageChange(page: number) {
+    this.currentPage = page;
+    this.searchJobs();
+    window.scrollTo(0, 0);
+  }
+
+  isFavorite(jobId: string, favorites: FavoriteOffer[]): boolean {
+    return favorites.some(f => f.offerId === jobId);
+  }
+
+  onAddFavorite(job: Job) {
+    const user = this.authService.getCurrentUser();
+    if (!user?.id) return;
+
+    const favorite: FavoriteOffer = {
+      userId: user.id,
+      offerId: job.id,
+      title: job.title,
+      company: job.company,
+      location: job.location
+    };
+    this.store.dispatch(FavoritesActions.addFavorite({ favorite }));
+  }
+
+  onRemoveFavorite(job: Job, favorites: FavoriteOffer[]) {
+    const fav = favorites.find(f => f.offerId === job.id);
+    if (fav?.id) {
+      this.store.dispatch(FavoritesActions.removeFavorite({ id: fav.id }));
+    }
+  }
+
+  onAddApplication(job: Job) {
+    const user = this.authService.getCurrentUser();
+    if (!user?.id) return;
+
+    this.applicationService.addApplication({
+      userId: user.id,
+      offerId: job.id,
+      apiSource: job.apiSource,
+      title: job.title,
+      company: job.company,
+      location: job.location,
+      url: job.url,
+      status: 'en_attente',
+      notes: '',
+      dateAdded: new Date().toISOString()
+    }).subscribe({
+      next: () => alert('Candidature ajoutée au suivi !'),
+      error: () => alert('Erreur lors de l\'ajout de la candidature')
+    });
+  }
+}
