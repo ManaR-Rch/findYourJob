@@ -1,0 +1,20 @@
+<div class="flex justify-center items-center gap-2 mt-6" *ngIf="totalPages > 1">
+  <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1"
+          class="px-3 py-1 rounded border hover:bg-gray-100 disabled:opacity-50">
+    Précédent
+  </button>
+
+  @for (page of pages; track page) {
+    <button (click)="goToPage(page)"
+            [class]="page === currentPage
+              ? 'px-3 py-1 rounded bg-blue-600 text-white'
+              : 'px-3 py-1 rounded border hover:bg-gray-100'">
+      {{ page }}
+    </button>
+  }
+
+  <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages"
+          class="px-3 py-1 rounded border hover:bg-gray-100 disabled:opacity-50">
+    Suivant
+  </button>
+</div>
