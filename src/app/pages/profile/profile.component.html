@@ -1,0 +1,62 @@
+<div class="flex justify-center py-12 px-4">
+  <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+    <h2 class="text-2xl font-bold text-center mb-6">Mon Profil</h2>
+
+    @if (successMessage) {
+      <div class="bg-green-100 text-green-700 p-3 rounded mb-4">{{ successMessage }}</div>
+    }
+
+    @if (errorMessage) {
+      <div class="bg-red-100 text-red-700 p-3 rounded mb-4">{{ errorMessage }}</div>
+    }
+
+    <form [formGroup]="profileForm" (ngSubmit)="onUpdate()">
+      <div class="mb-4">
+        <label class="block text-gray-700 mb-1">Nom</label>
+        <input formControlName="nom" type="text"
+               class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        @if (profileForm.get('nom')?.invalid && profileForm.get('nom')?.touched) {
+          <p class="text-red-500 text-sm mt-1">Le nom est requis</p>
+        }
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700 mb-1">Prénom</label>
+        <input formControlName="prenom" type="text"
+               class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        @if (profileForm.get('prenom')?.invalid && profileForm.get('prenom')?.touched) {
+          <p class="text-red-500 text-sm mt-1">Le prénom est requis</p>
+        }
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700 mb-1">Email</label>
+        <input formControlName="email" type="email"
+               class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        @if (profileForm.get('email')?.invalid && profileForm.get('email')?.touched) {
+          <p class="text-red-500 text-sm mt-1">Email invalide</p>
+        }
+      </div>
+
+      <div class="mb-6">
+        <label class="block text-gray-700 mb-1">Nouveau mot de passe (optionnel)</label>
+        <input formControlName="password" type="password"
+               class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="Laisser vide pour ne pas changer">
+        @if (profileForm.get('password')?.invalid && profileForm.get('password')?.touched) {
+          <p class="text-red-500 text-sm mt-1">Minimum 6 caractères</p>
+        }
+      </div>
+
+      <button type="submit"
+              class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+        Mettre à jour
+      </button>
+    </form>
+
+    <button (click)="onDelete()"
+            class="w-full mt-4 bg-red-500 text-white py-2 rounded hover:bg-red-600">
+      Supprimer mon compte
+    </button>
+  </div>
+</div>
