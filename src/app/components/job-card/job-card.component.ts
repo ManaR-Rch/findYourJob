@@ -2,11 +2,12 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Job } from '../../models/job.model';
 import { DatePipe } from '@angular/common';
+import { TruncatePipe } from '../../pipes/truncate.pipe';
 
 @Component({
   selector: 'app-job-card',
   standalone: true,
-  imports: [CommonModule, DatePipe],
+  imports: [CommonModule, DatePipe, TruncatePipe],
   templateUrl: './job-card.component.html'
 })
 export class JobCardComponent {

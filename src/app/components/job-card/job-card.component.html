@@ -11,7 +11,7 @@
     {{ job.salary }}
   </p>
 
-  <p class="text-gray-600 text-sm mt-2 line-clamp-3">{{ job.description }}</p>
+  <p class="text-gray-600 text-sm mt-2 line-clamp-3">{{ job.description | truncate:200 }}</p>
 
   <div class="flex flex-wrap gap-2 mt-4">
     <a [href]="job.url" target="_blank"
