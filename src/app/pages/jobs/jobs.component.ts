@@ -13,6 +13,7 @@ import { FavoriteOffer } from '../../models/favorite.model';
 import { selectAllFavorites } from '../../store/favorites.selectors';
 import * as FavoritesActions from '../../store/favorites.actions';
 import { ApplicationService } from '../../services/application.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-jobs',
@@ -36,7 +37,8 @@ export class JobsComponent implements OnInit, OnDestroy {
     private jobService: JobService,
     public authService: AuthService,
     private store: Store,
-    private applicationService: ApplicationService
+    private applicationService: ApplicationService,
+    private toastService: ToastService
   ) {}
 
   ngOnInit() {
@@ -129,8 +131,8 @@ export class JobsComponent implements OnInit, OnDestroy {
       notes: '',
       dateAdded: new Date().toISOString()
     }).subscribe({
-      next: () => alert('Candidature ajoutée au suivi !'),
-      error: () => alert('Erreur lors de l\'ajout de la candidature')
+      next: () => this.toastService.show('Candidature ajoutée au suivi !', 'success'),
+      error: () => this.toastService.show('Erreur lors de l\'ajout de la candidature', 'error')
     });
   }
 }
