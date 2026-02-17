@@ -2,11 +2,12 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Application } from '../../../models/application.model';
+import { StatusLabelPipe } from '../../../pipes/status-label.pipe';
 
 @Component({
   selector: 'app-application-card',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, StatusLabelPipe],
   templateUrl: './application-card.component.html'
 })
 export class ApplicationCardComponent {
@@ -47,12 +48,4 @@ export class ApplicationCardComponent {
     }
   }
 
-  getStatusLabel(): string {
-    switch (this.application.status) {
-      case 'en_attente': return 'En attente';
-      case 'accepte': return 'Accepté';
-      case 'refuse': return 'Refusé';
-      default: return this.application.status;
-    }
-  }
 }

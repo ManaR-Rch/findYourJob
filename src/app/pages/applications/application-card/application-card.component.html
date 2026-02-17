@@ -7,7 +7,7 @@
       <p class="text-gray-400 text-xs mt-1">Ajouté le {{ application.dateAdded | date:'dd/MM/yyyy' }}</p>
 
       <span class="inline-block mt-2 px-3 py-1 rounded-full text-xs font-medium" [ngClass]="getStatusColor()">
-        {{ getStatusLabel() }}
+        {{ application.status | statusLabel }}
       </span>
     </div>
 
