@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { Job } from '../models/job.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class JobService {
 
-  // Adzuna API
-  private appId = 'a8ca67de';
-  private appKey = '1e8284583e42deef80f1f8a2e5765478';
+  private appId = environment.adzunaAppId;
+  private appKey = environment.adzunaAppKey;
   private baseUrl = 'https://api.adzuna.com/v1/api/jobs';
 
   constructor(private http: HttpClient) {}
