@@ -19,9 +19,9 @@
         <app-job-card
           [job]="job"
           [isLoggedIn]="authService.isLoggedIn()"
-          [isFavorite]="isFavorite(job.id, (favorites$ | async) || [])"
+          [isFavorite]="isFavorite(job.id)"
           (addFavorite)="onAddFavorite($event)"
-          (removeFavorite)="onRemoveFavorite($event, (favorites$ | async) || [])"
+          (removeFavorite)="onRemoveFavorite($event)"
           (addApplication)="onAddApplication($event)">
         </app-job-card>
       }

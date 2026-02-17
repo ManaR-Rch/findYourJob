@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
 import { JobCardComponent } from '../../components/job-card/job-card.component';
@@ -8,7 +8,7 @@ import { JobService } from '../../services/job.service';
 import { AuthService } from '../../services/auth.service';
 import { Job } from '../../models/job.model';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { FavoriteOffer } from '../../models/favorite.model';
 import { selectAllFavorites } from '../../store/favorites.selectors';
 import * as FavoritesActions from '../../store/favorites.actions';
@@ -20,7 +20,7 @@ import { ApplicationService } from '../../services/application.service';
   imports: [CommonModule, SearchBarComponent, JobCardComponent, PaginationComponent, LoadingComponent],
   templateUrl: './jobs.component.html'
 })
-export class JobsComponent {
+export class JobsComponent implements OnInit, OnDestroy {
   jobs: Job[] = [];
   loading = false;
   currentPage = 1;
@@ -29,17 +29,15 @@ export class JobsComponent {
   errorMessage = '';
   currentKeyword = '';
   currentLocation = '';
-
-  favorites$: Observable<FavoriteOffer[]>;
+  favoritesList: FavoriteOffer[] = [];
+  private favSub!: Subscription;
 
   constructor(
     private jobService: JobService,
     public authService: AuthService,
     private store: Store,
     private applicationService: ApplicationService
-  ) {
-    this.favorites$ = this.store.select(selectAllFavorites);
-  }
+  ) {}
 
   ngOnInit() {
     if (this.authService.isLoggedIn()) {
@@ -47,6 +45,15 @@ export class JobsComponent {
       if (user?.id) {
         this.store.dispatch(FavoritesActions.loadFavorites({ userId: user.id }));
       }
+    }
+    this.favSub = this.store.select(selectAllFavorites).subscribe(favs => {
+      this.favoritesList = favs;
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.favSub) {
+      this.favSub.unsubscribe();
     }
   }
 
@@ -81,8 +88,8 @@ export class JobsComponent {
     window.scrollTo(0, 0);
   }
 
-  isFavorite(jobId: string, favorites: FavoriteOffer[]): boolean {
-    return favorites.some(f => f.offerId === jobId);
+  isFavorite(jobId: string): boolean {
+    return this.favoritesList.some(f => f.offerId === jobId);
   }
 
   onAddFavorite(job: Job) {
@@ -99,8 +106,8 @@ export class JobsComponent {
     this.store.dispatch(FavoritesActions.addFavorite({ favorite }));
   }
 
-  onRemoveFavorite(job: Job, favorites: FavoriteOffer[]) {
-    const fav = favorites.find(f => f.offerId === job.id);
+  onRemoveFavorite(job: Job) {
+    const fav = this.favoritesList.find(f => f.offerId === job.id);
     if (fav?.id) {
       this.store.dispatch(FavoritesActions.removeFavorite({ id: fav.id }));
     }
