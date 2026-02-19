@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +19,8 @@ export class RegisterComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {
     this.registerForm = this.fb.group({
       nom: ['', Validators.required],
@@ -45,6 +47,7 @@ export class RegisterComponent {
 
       this.authService.register(this.registerForm.value).subscribe({
         next: () => {
+          this.toastService.show('Inscription réussie ! Connectez-vous', 'success');
           this.router.navigate(['/login']);
         },
         error: () => {
