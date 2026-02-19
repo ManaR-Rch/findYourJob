@@ -119,6 +119,8 @@ export class JobsComponent implements OnInit, OnDestroy {
     const user = this.authService.getCurrentUser();
     if (!user?.id) return;
 
+    if (!confirm('Voulez-vous ajouter cette offre à vos candidatures ?')) return;
+
     this.applicationService.addApplication({
       userId: user.id,
       offerId: job.id,
