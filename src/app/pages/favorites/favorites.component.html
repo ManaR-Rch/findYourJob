@@ -1,5 +1,12 @@
 <div class="max-w-5xl mx-auto px-4 py-8">
-  <h2 class="text-2xl font-bold mb-6">Mes Favoris</h2>
+  <div class="flex items-center gap-3 mb-6">
+    <h2 class="text-2xl font-bold">Mes Favoris</h2>
+    @if ((favorites$ | async); as favCount) {
+      @if (favCount.length > 0) {
+        <span class="bg-yellow-100 text-yellow-800 text-sm px-3 py-1 rounded-full">{{ favCount.length }}</span>
+      }
+    }
+  </div>
 
   @if (loading$ | async) {
     <app-loading></app-loading>
