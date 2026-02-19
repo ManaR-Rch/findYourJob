@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user.model';
 import { ProfileInfoComponent } from './profile-info/profile-info.component';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-profile',
@@ -21,7 +22,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {}
 
   ngOnInit() {
@@ -62,6 +64,7 @@ export class ProfileComponent implements OnInit {
         localStorage.setItem('currentUser', JSON.stringify(safeUser));
         this.user = safeUser;
         this.successMessage = 'Profil mis à jour avec succès';
+        this.toastService.show('Profil mis à jour avec succès', 'success');
       },
       error: () => {
         this.errorMessage = 'Erreur lors de la mise à jour';
