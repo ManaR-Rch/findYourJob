@@ -4,8 +4,9 @@ import { Component } from '@angular/core';
   selector: 'app-footer',
   standalone: true,
   template: `
-    <footer class="bg-gray-800 text-white text-center py-4 mt-8">
-      <p>&copy; 2026 JobFinder - Tous droits réservés</p>
+    <footer class="bg-gray-800 text-white text-center py-6 mt-8">
+      <p class="text-sm">&copy; 2025 JobFinder - Tous droits réservés</p>
+      <p class="text-xs text-gray-400 mt-1">Données fournies par l'API Adzuna</p>
     </footer>
   `
 })
