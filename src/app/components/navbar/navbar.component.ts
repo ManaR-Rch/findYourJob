@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,7 +13,11 @@ import { AuthService } from '../../services/auth.service';
 export class NavbarComponent {
   menuOpen = false;
 
-  constructor(public authService: AuthService, private router: Router) {}
+  constructor(
+    public authService: AuthService,
+    private router: Router,
+    private toastService: ToastService
+  ) {}
 
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
@@ -20,6 +25,7 @@ export class NavbarComponent {
 
   logout() {
     this.authService.logout();
+    this.toastService.show('Déconnexion réussie', 'info');
     this.router.navigate(['/']);
   }
 }
