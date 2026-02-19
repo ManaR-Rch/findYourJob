@@ -1,27 +1,50 @@
 # JobFinder
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.21.
+Application web de recherche d'emploi construite avec Angular 18.
 
-## Development server
+## Description
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+JobFinder permet de rechercher des offres d'emploi via l'API Adzuna, de sauvegarder ses offres favorites et de suivre ses candidatures avec un système de statuts.
 
-## Code scaffolding
+## Technologies
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Angular 18 (standalone components)
+- Tailwind CSS
+- NgRx (gestion d'état des favoris)
+- JSON Server (fake API pour l'authentification)
+- API Adzuna (offres d'emploi)
 
-## Build
+## Fonctionnalités
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Recherche d'emplois par mots clés et localisation
+- Inscription et connexion utilisateur
+- Sauvegarde des offres en favoris
+- Suivi des candidatures avec statuts (en attente, accepté, refusé)
+- Gestion du profil utilisateur
+- Notifications toast
+- Design responsive
 
-## Running unit tests
+## Installation
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+npm install
+```
 
-## Running end-to-end tests
+## Lancement
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Démarrer le serveur JSON (fake API) :
+```bash
+npm run server
+```
 
-## Further help
+Démarrer l'application Angular :
+```bash
+ng serve
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+L'application est accessible sur `http://localhost:4200`.
+
+## Compte de test
+
+- Email : test@test.com
+- Mot de passe : 123456
