@@ -32,10 +32,17 @@ export class JobService {
     }
 
     return this.http.get<any>(url, { params }).pipe(
-      map(response => ({
-        jobs: response.results.map((item: any) => this.mapToJob(item)),
-        total: response.count || 0
-      }))
+      map(response => {
+        // filtrer pour garder uniquement les offres dont le titre contient le mot cle
+        const allJobs = response.results.map((item: any) => this.mapToJob(item));
+        const filtered = allJobs.filter((job: Job) =>
+          job.title.toLowerCase().includes(keyword.toLowerCase())
+        );
+        return {
+          jobs: filtered,
+          total: filtered.length
+        };
+      })
     );
   }
 
