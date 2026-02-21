@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { ApplicationService } from '../../services/application.service';
 import { AuthService } from '../../services/auth.service';
 import { Application } from '../../models/application.model';
@@ -9,7 +10,7 @@ import { LoadingComponent } from '../../components/loading/loading.component';
 @Component({
   selector: 'app-applications',
   standalone: true,
-  imports: [CommonModule, ApplicationCardComponent, LoadingComponent],
+  imports: [CommonModule, RouterLink, ApplicationCardComponent, LoadingComponent],
   templateUrl: './applications.component.html'
 })
 export class ApplicationsComponent implements OnInit {

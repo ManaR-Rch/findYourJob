@@ -11,7 +11,11 @@
   }
 
   @if (!loading && applications.length === 0) {
-    <p class="text-center text-gray-500 py-8">Vous n'avez pas encore de candidatures suivies</p>
+    <div class="text-center py-12">
+      <p class="text-4xl mb-4">📋</p>
+      <p class="text-gray-500">Vous n'avez pas encore de candidatures suivies</p>
+      <a routerLink="/jobs" class="inline-block mt-4 text-blue-600 hover:underline">Rechercher des offres</a>
+    </div>
   }
 
   @if (!loading && applications.length > 0) {
