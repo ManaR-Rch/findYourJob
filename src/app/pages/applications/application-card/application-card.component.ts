@@ -34,6 +34,7 @@ export class ApplicationCardComponent {
   }
 
   onDelete() {
+    if (!confirm('Voulez-vous supprimer cette candidature ?')) return;
     if (this.application.id) {
       this.delete.emit(this.application.id);
     }
