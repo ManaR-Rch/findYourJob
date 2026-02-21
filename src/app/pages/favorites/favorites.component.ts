@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { FavoriteOffer } from '../../models/favorite.model';
@@ -12,7 +13,7 @@ import { LoadingComponent } from '../../components/loading/loading.component';
 @Component({
   selector: 'app-favorites',
   standalone: true,
-  imports: [CommonModule, FavoriteCardComponent, LoadingComponent],
+  imports: [CommonModule, RouterLink, FavoriteCardComponent, LoadingComponent],
   templateUrl: './favorites.component.html'
 })
 export class FavoritesComponent implements OnInit {

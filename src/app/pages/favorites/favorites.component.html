@@ -14,7 +14,11 @@
 
   @if ((favorites$ | async); as favorites) {
     @if (favorites.length === 0) {
-      <p class="text-center text-gray-500 py-8">Vous n'avez pas encore de favoris</p>
+      <div class="text-center py-12">
+        <p class="text-4xl mb-4">⭐</p>
+        <p class="text-gray-500">Vous n'avez pas encore de favoris</p>
+        <a routerLink="/jobs" class="inline-block mt-4 text-blue-600 hover:underline">Rechercher des offres</a>
+      </div>
     } @else {
       <div class="space-y-4">
         @for (fav of favorites; track fav.id) {
