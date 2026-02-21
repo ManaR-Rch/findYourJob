@@ -11,6 +11,7 @@ export class FavoriteCardComponent {
   @Output() remove = new EventEmitter<number>();
 
   onRemove() {
+    if (!confirm('Voulez-vous retirer ce favori ?')) return;
     if (this.favorite.id) {
       this.remove.emit(this.favorite.id);
     }
