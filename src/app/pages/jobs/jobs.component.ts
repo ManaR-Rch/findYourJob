@@ -10,6 +10,7 @@ import { Job } from '../../models/job.model';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { FavoriteOffer } from '../../models/favorite.model';
+import { Application } from '../../models/application.model';
 import { selectAllFavorites } from '../../store/favorites.selectors';
 import * as FavoritesActions from '../../store/favorites.actions';
 import { ApplicationService } from '../../services/application.service';
@@ -31,6 +32,7 @@ export class JobsComponent implements OnInit, OnDestroy {
   currentKeyword = '';
   currentLocation = '';
   favoritesList: FavoriteOffer[] = [];
+  applicationsList: Application[] = [];
   private favSub!: Subscription;
 
   constructor(
@@ -50,6 +52,16 @@ export class JobsComponent implements OnInit, OnDestroy {
     }
     this.favSub = this.store.select(selectAllFavorites).subscribe(favs => {
       this.favoritesList = favs;
+    });
+
+    this.loadApplications();
+  }
+
+  loadApplications() {
+    const user = this.authService.getCurrentUser();
+    if (!user?.id) return;
+    this.applicationService.getApplications(user.id).subscribe(apps => {
+      this.applicationsList = apps;
     });
   }
 
@@ -115,9 +127,18 @@ export class JobsComponent implements OnInit, OnDestroy {
     }
   }
 
+  isApplied(jobId: string): boolean {
+    return this.applicationsList.some(a => a.offerId === jobId);
+  }
+
   onAddApplication(job: Job) {
     const user = this.authService.getCurrentUser();
     if (!user?.id) return;
+
+    if (this.isApplied(job.id)) {
+      this.toastService.show('Vous suivez d\u00e9j\u00e0 cette candidature', 'info');
+      return;
+    }
 
     if (!confirm('Voulez-vous ajouter cette offre à vos candidatures ?')) return;
 
@@ -133,7 +154,10 @@ export class JobsComponent implements OnInit, OnDestroy {
       notes: '',
       dateAdded: new Date().toISOString()
     }).subscribe({
-      next: () => this.toastService.show('Candidature ajoutée au suivi !', 'success'),
+      next: () => {
+        this.toastService.show('Candidature ajoutée au suivi !', 'success');
+        this.loadApplications();
+      },
       error: () => this.toastService.show('Erreur lors de l\'ajout de la candidature', 'error')
     });
   }
