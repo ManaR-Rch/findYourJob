@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user.model';
 import { ProfileInfoComponent } from './profile-info/profile-info.component';
@@ -23,11 +23,13 @@ export class ProfileComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
+    private route: ActivatedRoute,
     private toastService: ToastService
   ) {}
 
   ngOnInit() {
-    this.user = this.authService.getCurrentUser();
+    // utiliser les donnees du resolver
+    this.user = this.route.snapshot.data['user'];
     if (!this.user) {
       this.router.navigate(['/login']);
       return;
