@@ -1,8 +1,8 @@
 <div class="max-w-5xl mx-auto px-4 py-8">
   <div class="flex items-center gap-3 mb-6">
-    <h2 class="text-2xl font-bold">Mes Candidatures</h2>
+    <h2 class="text-xl font-bold text-gray-800">Mes Candidatures</h2>
     @if (!loading && applications.length > 0) {
-      <span class="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full">{{ applications.length }}</span>
+      <span class="text-sm text-gray-500">({{ applications.length }})</span>
     }
   </div>
 
@@ -11,15 +11,14 @@
   }
 
   @if (!loading && applications.length === 0) {
-    <div class="text-center py-12">
-      <p class="text-4xl mb-4">📋</p>
-      <p class="text-gray-500">Vous n'avez pas encore de candidatures suivies</p>
-      <a routerLink="/jobs" class="inline-block mt-4 text-blue-600 hover:underline">Rechercher des offres</a>
+    <div class="text-center py-10">
+      <p class="text-gray-400">Aucune candidature suivie</p>
+      <a routerLink="/jobs" class="inline-block mt-3 text-blue-600 hover:underline text-sm">Rechercher des offres</a>
     </div>
   }
 
   @if (!loading && applications.length > 0) {
-    <div class="space-y-4">
+    <div class="space-y-3">
       @for (app of applications; track app.id) {
         <app-application-card
           [application]="app"

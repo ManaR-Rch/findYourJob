@@ -4,9 +4,8 @@ import { Component, Input } from '@angular/core';
   selector: 'app-auth-header',
   standalone: true,
   template: `
-    <div class="text-center mb-6">
-      <h1 class="text-3xl font-bold text-blue-600 mb-1">JobFinder</h1>
-      <h2 class="text-xl font-semibold text-gray-700">{{ title }}</h2>
+    <div class="mb-6">
+      <h2 class="text-xl font-bold text-gray-800">{{ title }}</h2>
       <p class="text-gray-400 text-sm mt-1">{{ subtitle }}</p>
     </div>
   `

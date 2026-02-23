@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
   jsonServerUrl: 'http://localhost:3000',
-  adzunaAppId: 'a8ca67de',
-  adzunaAppKey: '1e8284583e42deef80f1f8a2e5765478'
+  adzunaAppId: '0e512cd9',
+  adzunaAppKey: '48688e6c70131666e7d76bb05455b8bc'
 };

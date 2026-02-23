@@ -7,7 +7,6 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { favoritesReducer } from './store/favorites.reducer';
 import { FavoritesEffects } from './store/favorites.effects';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
-
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {

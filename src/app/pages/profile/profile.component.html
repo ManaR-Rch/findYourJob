@@ -1,67 +1,67 @@
-<div class="flex justify-center py-12 px-4">
-  <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-    <h2 class="text-2xl font-bold text-center mb-6">Mon Profil</h2>
+<div class="flex justify-center py-10 px-4">
+  <div class="bg-white p-6 rounded border border-gray-200 w-full max-w-md">
+    <h2 class="text-xl font-bold text-gray-800 mb-4">Mon Profil</h2>
 
     @if (user) {
       <app-profile-info [user]="user"></app-profile-info>
     }
 
     @if (successMessage) {
-      <div class="bg-green-100 text-green-700 p-3 rounded mb-4">{{ successMessage }}</div>
+      <div class="bg-green-50 text-green-600 p-3 rounded text-sm mb-4">{{ successMessage }}</div>
     }
 
     @if (errorMessage) {
-      <div class="bg-red-100 text-red-700 p-3 rounded mb-4">{{ errorMessage }}</div>
+      <div class="bg-red-50 text-red-600 p-3 rounded text-sm mb-4">{{ errorMessage }}</div>
     }
 
     <form [formGroup]="profileForm" (ngSubmit)="onUpdate()">
       <div class="mb-4">
-        <label class="block text-gray-700 mb-1">Nom</label>
+        <label class="block text-gray-600 mb-1 text-sm">Nom</label>
         <input formControlName="nom" type="text"
-               class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+               class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
         @if (profileForm.get('nom')?.invalid && profileForm.get('nom')?.touched) {
-          <p class="text-red-500 text-sm mt-1">Le nom est requis</p>
+          <p class="text-red-500 text-xs mt-1">Le nom est requis</p>
         }
       </div>
 
       <div class="mb-4">
-        <label class="block text-gray-700 mb-1">Prénom</label>
+        <label class="block text-gray-600 mb-1 text-sm">Prenom</label>
         <input formControlName="prenom" type="text"
-               class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+               class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
         @if (profileForm.get('prenom')?.invalid && profileForm.get('prenom')?.touched) {
-          <p class="text-red-500 text-sm mt-1">Le prénom est requis</p>
+          <p class="text-red-500 text-xs mt-1">Le prenom est requis</p>
         }
       </div>
 
       <div class="mb-4">
-        <label class="block text-gray-700 mb-1">Email</label>
+        <label class="block text-gray-600 mb-1 text-sm">Email</label>
         <input formControlName="email" type="email"
-               class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+               class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
         @if (profileForm.get('email')?.invalid && profileForm.get('email')?.touched) {
-          <p class="text-red-500 text-sm mt-1">Email invalide</p>
+          <p class="text-red-500 text-xs mt-1">Email invalide</p>
         }
       </div>
 
-      <div class="mb-6">
-        <label class="block text-gray-700 mb-1">Nouveau mot de passe (optionnel)</label>
+      <div class="mb-5">
+        <label class="block text-gray-600 mb-1 text-sm">Nouveau mot de passe (optionnel)</label>
         <input formControlName="password" type="password"
-               class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
                placeholder="Laisser vide pour ne pas changer">
         @if (profileForm.get('password')?.invalid && profileForm.get('password')?.touched) {
-          <p class="text-red-500 text-sm mt-1">Minimum 6 caractères</p>
+          <p class="text-red-500 text-xs mt-1">Minimum 6 caracteres</p>
         }
       </div>
 
       <button type="submit"
-              class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
-        Mettre à jour
+              class="w-full bg-blue-600 text-white py-2 rounded text-sm hover:bg-blue-700">
+        Mettre a jour
       </button>
     </form>
 
-    <hr class="my-6 border-gray-200">
+    <hr class="my-5 border-gray-200">
 
     <button (click)="onDelete()"
-            class="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600">
+            class="w-full border border-red-400 text-red-500 py-2 rounded text-sm hover:bg-red-50">
       Supprimer mon compte
     </button>
   </div>

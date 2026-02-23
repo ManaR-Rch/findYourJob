@@ -6,8 +6,59 @@
       "prenom": "User",
       "email": "test@test.com",
       "password": "123456"
+    },
+    {
+      "nom": "test",
+      "prenom": "test",
+      "email": "test@gmail.com",
+      "password": "1234qwer",
+      "id": 2
     }
   ],
-  "favoritesOffers": [],
-  "applications": []
+  "favoritesOffers": [
+    {
+      "userId": 2,
+      "offerId": "5641515098",
+      "title": "Java Software Engineer (UK)",
+      "company": "Sophos",
+      "location": "UK",
+      "id": 1
+    },
+    {
+      "userId": 2,
+      "offerId": "5641515344",
+      "title": "Consultant Senior - HR Associate Relations",
+      "company": "Capital Group",
+      "location": "London, UK",
+      "id": 2
+    }
+  ],
+  "applications": [
+    {
+      "userId": 2,
+      "offerId": "5641515098",
+      "apiSource": "adzuna",
+      "title": "Java Software Engineer (UK)",
+      "company": "Sophos",
+      "location": "UK",
+      "url": "https://www.adzuna.co.uk/jobs/details/5641515098?utm_medium=api&utm_source=0e512cd9",
+      "status": "en_attente",
+      "notes": "cc",
+      "dateAdded": "2026-02-22T22:10:01.408Z",
+      "id": 1
+    },
+    {
+      "userId": 2,
+      "offerId": "5641515344",
+      "apiSource": "adzuna",
+      "title": "Consultant Senior - HR Associate Relations",
+      "company": "Capital Group",
+      "location": "London, UK",
+      "url": "https://www.adzuna.co.uk/jobs/land/ad/5641515344?se=iASQFzwQ8RG2fqdz0Oa1IA&utm_medium=api&utm_source=0e512cd9&v=BBFE90E653864E13FEAE0FBE0937049DCEC33FCB",
+      "status": "en_attente",
+      "notes": "",
+      "dateAdded": "2026-02-22T22:16:19.491Z",
+      "id": 2
+    }
+  ]
 }

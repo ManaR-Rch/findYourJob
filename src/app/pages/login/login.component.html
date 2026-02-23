@@ -1,37 +1,37 @@
-<div class="flex justify-center py-12 px-4">
-  <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-    <app-auth-header title="Connexion" subtitle="Connectez-vous pour accéder à votre compte"></app-auth-header>
+<div class="flex justify-center py-10 px-4">
+  <div class="bg-white p-6 rounded border border-gray-200 w-full max-w-sm">
+    <app-auth-header title="Connexion" subtitle="Connectez-vous a votre compte"></app-auth-header>
 
     @if (errorMessage) {
-      <div class="bg-red-100 text-red-700 p-3 rounded mb-4">{{ errorMessage }}</div>
+      <div class="bg-red-50 text-red-600 p-3 rounded text-sm mb-4">{{ errorMessage }}</div>
     }
 
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div class="mb-4">
-        <label class="block text-gray-700 mb-1">Email</label>
+        <label class="block text-gray-600 mb-1 text-sm">Email</label>
         <input formControlName="email" type="email"
-               class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+               class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
         @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
-          <p class="text-red-500 text-sm mt-1">Email invalide</p>
+          <p class="text-red-500 text-xs mt-1">Email invalide</p>
         }
       </div>
 
-      <div class="mb-6">
-        <label class="block text-gray-700 mb-1">Mot de passe</label>
+      <div class="mb-5">
+        <label class="block text-gray-600 mb-1 text-sm">Mot de passe</label>
         <input formControlName="password" type="password"
-               class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+               class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
         @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
-          <p class="text-red-500 text-sm mt-1">Le mot de passe est requis</p>
+          <p class="text-red-500 text-xs mt-1">Le mot de passe est requis</p>
         }
       </div>
 
       <button type="submit" [disabled]="loading"
-              class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 disabled:opacity-50">
+              class="w-full bg-blue-600 text-white py-2 rounded text-sm hover:bg-blue-700 disabled:opacity-50">
         {{ loading ? 'Chargement...' : 'Se connecter' }}
       </button>
     </form>
 
-    <p class="text-center mt-4 text-gray-600">
+    <p class="text-center mt-4 text-gray-500 text-sm">
       Pas de compte ? <a routerLink="/register" class="text-blue-600 hover:underline">S'inscrire</a>
     </p>
   </div>

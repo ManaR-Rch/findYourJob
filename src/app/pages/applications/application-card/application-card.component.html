@@ -1,10 +1,10 @@
-<div class="bg-white p-5 rounded-lg shadow-md">
+<div class="bg-white p-4 rounded border border-gray-200">
   <div class="flex flex-col md:flex-row justify-between items-start gap-4">
     <div class="flex-1">
-      <h3 class="text-lg font-semibold text-blue-600">{{ application.title }}</h3>
-      <p class="text-gray-700">{{ application.company }}</p>
-      <p class="text-gray-500 text-sm">{{ application.location }}</p>
-      <p class="text-gray-400 text-xs mt-1">Ajouté le {{ application.dateAdded | date:'dd/MM/yyyy' }}</p>
+      <h3 class="font-semibold text-gray-800">{{ application.title }}</h3>
+      <p class="text-gray-600 text-sm">{{ application.company }}</p>
+      <p class="text-gray-400 text-sm">{{ application.location }}</p>
+      <p class="text-gray-400 text-xs mt-1">Ajoute le {{ application.dateAdded | date:'dd/MM/yyyy' }}</p>
 
       <span class="inline-block mt-2 px-3 py-1 rounded-full text-xs font-medium" [ngClass]="getStatusColor()">
         {{ application.status | statusLabel }}
@@ -14,10 +14,10 @@
     <div class="flex flex-col gap-2">
       <select (change)="onStatusChange($any($event.target).value)"
               [value]="application.status"
-              class="border rounded px-3 py-1 text-sm">
+              class="border border-gray-300 rounded px-3 py-1 text-sm">
         <option value="en_attente">En attente</option>
-        <option value="accepte">Accepté</option>
-        <option value="refuse">Refusé</option>
+        <option value="accepte">Accepte</option>
+        <option value="refuse">Refuse</option>
       </select>
 
       <a [href]="application.url" target="_blank"
@@ -31,7 +31,7 @@
       </button>
 
       <button (click)="onDelete()"
-              class="bg-red-500 text-white px-4 py-1 rounded text-sm hover:bg-red-600">
+              class="border border-red-400 text-red-500 px-4 py-1 rounded text-sm hover:bg-red-50">
         Supprimer
       </button>
     </div>
@@ -47,7 +47,7 @@
   @if (editingNotes) {
     <div class="mt-3">
       <textarea [(ngModel)]="notesText" rows="3"
-                class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
                 placeholder="Ajoutez vos notes..."></textarea>
       <div class="flex gap-2 mt-2">
         <button (click)="saveNotes()" class="bg-blue-600 text-white px-4 py-1 rounded text-sm hover:bg-blue-700">
